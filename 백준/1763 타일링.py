@@ -4,10 +4,10 @@ li[i-1]에서 2x1의 타일을 세로로 붙인 경우
 li[i-2]에서 2x2의 타일을 붙인 경우
 li[i-2]에서 2x1의 타일 두 개를 가로로 붙인 경우
 """
-li = [0] * (N+1)
 while True:
     try:
         N = int(input())
+        li = [0] * (N+1)
 
         for i in range(1, N+1):
             if i == 1:
