@@ -7,6 +7,9 @@ N, M = map(int, input().split())
 num = [0] + list(map(int, input().split()))
 sum_num = [0]*(N+1) 
 
+#[0, 1, 2, 3, 4, 5]
+#[0, 1, 3, 6, 10, 15]
+
 #구간합 리스트
 for i in range(1, N+1):
     if i == 1:
@@ -14,7 +17,8 @@ for i in range(1, N+1):
     else:
         sum_num[i] = sum_num[i-1] + num[i]
         
-#구간합 리스트
+#구간합 리스트 범위 구하기
 for i in range(M):
     s, e = map(int, input().split())
     print(sum_num[e]-sum_num[s]+num[s])
+    
