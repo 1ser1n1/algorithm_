@@ -1,34 +1,24 @@
-import sys
-input = sys.stdin.readline
+def bfs(si, sj, ei, ej):
+    q = []
+    v = [[0]*M for _ in range(N)]
 
-n, m = map(int,input().split())
+    q.append((si,sj))
+    v[si][sj] = 1
 
-graph = []
+    while q:
+        ci, cj = q.pop(0)
+        if (ci,cj) == (ei,ej):  # 정답 처리가 필요한 경우 이자리에서..
+            return v[ei][ej]
 
-#1. graph 정보 입력
-for _ in range(n):
-    graph.append(list(input()))
-    
-#상하좌우
-dx = [-1,1,0,0]
-dy = [0,0,-1,1]
+        # 4방향, 범위내, 조건에 맞으면: arr == 1, v == 0
+        for di,dj in ((-1,0), (1,0), (0,-1), (0,1)):
+            ni, nj = ci+di, cj+dj
+            if 0<=ni<N and 0<=nj<M and arr[ni][nj]==1 and v[ni][nj]==0:
+                q.append((ni,nj))
+                v[ni][nj] = v[ci][cj]+1
 
-queue = [[0,0]]
+N, M = map(int, input().split())
+arr = [list(map(int, input())) for _ in range(N)]
 
-graph[0][0]=1
-
-while queue:
-    x, y = queue[0][0], queue[0][1]
-    
-    del queue[0]
-    
-    for i in range(4):
-        nx = x + dx[i]
-        ny = y + dy[i]
-        
-        if nx >= 0 and ny >= 0 and nx<n and ny<m:
-            if graph[nx][ny] == "1":
-                queue.append([nx,ny])
-                graph[nx][ny] = graph[x][y] + 1
-                
-print(graph[n-1][m-1])
+ans = bfs(0, 0, N-1, M-1)
+print(ans)
